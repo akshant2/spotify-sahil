@@ -31,3 +31,5 @@ yarn.lock
 
 #cache
 .eslintcache
+
+src/styles/tailwind.css
