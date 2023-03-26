@@ -11,6 +11,7 @@
     "start": "cd ui && yarn start"
   },
   "devDependencies": {
-    "husky": "^8.0.1"
+    "husky": "^8.0.1",
+    "react-router-dom": "^6.8.2"
   }
 }

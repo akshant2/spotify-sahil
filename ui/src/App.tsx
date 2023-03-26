@@ -1,9 +1,12 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Login from "./Login";
+import React from "react";
+import "./App.css";
+import Approutes from "./router/Approutes";
 function App() {
-  return<Login/>
+  return (
+    <div>
+      <Approutes />
+    </div>
+  );
 }
 
 export default App;
