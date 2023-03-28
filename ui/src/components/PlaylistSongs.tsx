@@ -2,35 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-
-const Client_Id = "2357d14568d846bab2d432e223c97871";
-const Client_Secret = "062aa020285a4df7bbd122685e734a98";
-
+import { PlaylistSong } from "../types";
+import Authorize from "./Authorize";
 export default function PlaylistSongs() {
-  const [accessToken, setAccessToken] = useState(" ");
-  const [playlistSongs, setPlaylistSongs] = useState<any[]>([]);
+  const [playlistSongs, setPlaylistSongs] = useState<PlaylistSong[]>([]);
 
   const { id } = useParams();
 
+  const accessToken = Authorize();
   const msToMinutes = (ms: number) => {
     const minutes = Math.floor(ms / 60000);
     const seconds = ((ms % 60000) / 1000).toFixed(0);
     return `${minutes}:${+seconds < 10 ? "0" : ""}${seconds}`;
   };
-
-  useEffect(() => {
-    const authParameters = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: `grant_type=client_credentials&client_id=${Client_Id}&client_secret=${Client_Secret}`,
-    };
-
-    fetch("https://accounts.spotify.com/api/token", authParameters)
-      .then((response) => response.json())
-      .then((data) => setAccessToken(data.access_token));
-  }, []);
 
   useEffect(() => {
     const getPlaylist = () => {

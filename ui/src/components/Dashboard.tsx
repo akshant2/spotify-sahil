@@ -9,28 +9,12 @@ import {
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-
-const Client_Id = "2357d14568d846bab2d432e223c97871";
-const Client_Secret = "062aa020285a4df7bbd122685e734a98";
+import { Release } from "../types";
+import Authorize from "./Authorize";
 
 export default function Dashboard() {
-  const [accessToken, setAccessToken] = useState("");
-  const [releases, setRelease] = useState<any[]>([]);
-  const [recommends, setRecommend] = useState<any[]>([]);
-
-  useEffect(() => {
-    const authParameters = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: `grant_type=client_credentials&client_id=${Client_Id}&client_secret=${Client_Secret}`,
-    };
-
-    fetch("https://accounts.spotify.com/api/token", authParameters)
-      .then((response) => response.json())
-      .then((data) => setAccessToken(data.access_token));
-  }, []);
+  const [releases, setRelease] = useState<Release[]>([]);
+  const accessToken = Authorize();
 
   useEffect(() => {
     const release = () => {

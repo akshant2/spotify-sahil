@@ -7,32 +7,16 @@ import { Songs } from "./Songs";
 import { Artists } from "./Artists";
 import { Clear, Home, Search } from "@material-ui/icons";
 import { Playlists } from "./Playlists";
+import Authorize from "./Authorize";
 
-const Client_Id = "2357d14568d846bab2d432e223c97871";
-const Client_Secret = "062aa020285a4df7bbd122685e734a98";
 export default function Searchbar() {
   const [searchInput, setSearchInput] = useState("");
-  const [accessToken, setAccessToken] = useState("");
   const [artist, setArtist] = useState<Artist[]>([]);
   const [album, setAlbums] = useState<Album[]>([]);
   const [song, setSongs] = useState<Song[]>([]);
   const [playlist, setPlaylist] = useState<Playlist[]>([]);
   const [optionSelected, setOptionSelection] = useState<string>("");
-
-  useEffect(() => {
-    const authParameters = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: `grant_type=client_credentials&client_id=${Client_Id}&client_secret=${Client_Secret}`,
-    };
-
-    fetch("https://accounts.spotify.com/api/token", authParameters)
-      .then((response) => response.json())
-      .then((data) => setAccessToken(data.access_token));
-  }, []);
-
+  const accessToken = Authorize();
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(event.target.value);
   };
