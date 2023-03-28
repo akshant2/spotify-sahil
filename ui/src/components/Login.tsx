@@ -1,13 +1,11 @@
 import React from "react";
 import { Avatar, makeStyles } from "@material-ui/core";
 
-// connecting to my spotify account
 const authEndpoint = "https://accounts.spotify.com/authorize";
 const redirectUri = "http://localhost:3000/dashboard";
 const clientId = "2357d14568d846bab2d432e223c97871";
 
 const scopes = ["streaming", "user-read-email", "user-read-private"];
-// Using MUI to style my spotify logo
 const useStyles = makeStyles({
   login: {
     display: "grid",

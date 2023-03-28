@@ -1,20 +1,14 @@
 import React, { Fragment, useEffect, useState } from "react";
 import {
-  AppBar,
-  Box,
   Button,
   Card,
   CardActionArea,
   CardContent,
-  CardMedia,
-  IconButton,
-  Toolbar,
   Typography,
 } from "@material-ui/core";
 import Sidebar from "./Sidebar";
-import { data } from "autoprefixer";
-import header from "./Header";
 import { Link } from "react-router-dom";
+import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 
 const Client_Id = "2357d14568d846bab2d432e223c97871";
 const Client_Secret = "062aa020285a4df7bbd122685e734a98";
@@ -39,24 +33,37 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    const releaseParameters = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
+    const release = () => {
+      const releaseParameters = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      fetch("https://api.spotify.com/v1/browse/new-releases", releaseParameters)
+        .then((response) => response.json())
+        .then((data) => {
+          setRelease(data.albums.items);
+        });
     };
-    fetch("https://api.spotify.com/v1/browse/new-releases", releaseParameters)
-      .then((response) => response.json())
-      .then((data) => {
-        setRelease(data.albums.items);
-      });
+    if (accessToken) release();
   }, [accessToken]);
 
   return (
     <div>
       <div className="flex">
         <Sidebar />
+      </div>
+      <div className="bg-black w-full sticky top-0 p-2 flex items-center justify-between">
+        <div className="flex items-center">
+          <Button className="rounded-full bg-black ml-72 w-8 h-8 text-white text-3xl">
+            <ArrowBackIos />
+          </Button>
+          <Button className="rounded-full bg-black w-8 h-8 text-white text-3xl">
+            <ArrowForwardIos />
+          </Button>
+        </div>
       </div>
       <div className="bg-gray-600">
         <h1 className="p-4 ml-72 text-black text-2xl font-bold hover:underline">

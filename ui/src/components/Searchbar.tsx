@@ -17,7 +17,6 @@ export default function Searchbar() {
   const [album, setAlbums] = useState<Album[]>([]);
   const [song, setSongs] = useState<Song[]>([]);
   const [playlist, setPlaylist] = useState<Playlist[]>([]);
-  const [browses, setBrowse] = useState<any[]>([]);
   const [optionSelected, setOptionSelection] = useState<string>("");
 
   useEffect(() => {
@@ -66,11 +65,6 @@ export default function Searchbar() {
         setSongs(data.tracks.items);
         setAlbums(data.albums.items);
         setPlaylist(data.playlists.items);
-      });
-    fetch("https://api.spotify.com/v1/browse/categories", artistParameters)
-      .then((response) => response.json())
-      .then((data) => {
-        setBrowse(data.categories.items);
       });
   };
 

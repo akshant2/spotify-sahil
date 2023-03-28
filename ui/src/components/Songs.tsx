@@ -4,7 +4,7 @@ import { Song } from "../types";
 function msToMinutes(ms: number) {
   const minutes = Math.floor(ms / 60000);
   const seconds = ((ms % 60000) / 1000).toFixed(0);
-  return minutes + ":" + (+seconds < 10 ? "0" : "") + seconds;
+  return `${minutes}:${+seconds < 10 ? "0" : ""}${seconds}`;
 }
 export const Songs: FC<{ songs: Song[] }> = ({ songs }) => {
   return (
@@ -21,7 +21,6 @@ export const Songs: FC<{ songs: Song[] }> = ({ songs }) => {
                   >
                     #
                   </th>
-                  <th></th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-xs font-bold text-left text-white uppercase"
@@ -49,11 +48,9 @@ export const Songs: FC<{ songs: Song[] }> = ({ songs }) => {
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
                         {index + 1}
                       </td>
-                      <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
+                      <td className="px-6 py-4 flex text-sm font-medium text-white whitespace-nowrap">
                         <img src={song.album.images[2].url} />
-                      </td>
-                      <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {song.name}
+                        <div className="p-2">{song.name}</div>
                       </td>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
                         {song.album.name}

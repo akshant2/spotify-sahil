@@ -13,7 +13,7 @@ export default function AlbumSongs() {
   const msToMinutes = (ms: number) => {
     const minutes = Math.floor(ms / 60000);
     const seconds = ((ms % 60000) / 1000).toFixed(0);
-    return minutes + ":" + (+seconds < 10 ? "0" : "") + seconds;
+    return `${minutes}:${+seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   useEffect(() => {
@@ -31,18 +31,21 @@ export default function AlbumSongs() {
   }, []);
 
   useEffect(() => {
-    const albumParameters = {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
+    const getTracks = () => {
+      const albumParameters = {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      };
+      fetch(`https://api.spotify.com/v1/albums/${id}/tracks`, albumParameters)
+        .then((response) => response.json())
+        .then((data) => {
+          setAlbumSongs(data.items);
+        });
     };
-    fetch(`https://api.spotify.com/v1/albums/${id}/tracks`, albumParameters)
-      .then((response) => response.json())
-      .then((data) => {
-        setAlbumSongs(data.items);
-      });
+    if (accessToken) getTracks();
   }, [accessToken]);
 
   return (
