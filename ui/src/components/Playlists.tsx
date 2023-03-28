@@ -3,7 +3,6 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  CardMedia,
   Typography,
 } from "@material-ui/core";
 import { Playlist } from "../types";
@@ -12,18 +11,18 @@ export const Playlists: FC<PlaylistsType> = ({ playlists }) => {
   return (
     <div>
       <div className="bg-gray-600 p-2 grid grid-rows-5 sm:grid-cols-5 md:grid-cols-5 gap-2">
-        {playlists.map((playlist) => {
+        {playlists.map(({ id, images, name, owner }) => {
           return (
-            <Fragment key={playlist.id}>
+            <Fragment key={id}>
               <Card className="bg-gray-800 h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
                 <CardActionArea>
-                  <Link to={`/playlist/${playlist.id}`}>
+                  <Link to={`/playlist/${id}`}>
                     <img
                       className="object-contain h-48 2-96"
-                      src={playlist.images[0].url}
+                      src={images[0].url}
                     />
                   </Link>
-                  <a href={`http://localhost:3000/playlist/${playlist.id}`}></a>
+                  <a href={`http://localhost:3000/playlist/${id}`}></a>
                   <CardContent>
                     <Typography
                       className="text-white"
@@ -31,10 +30,10 @@ export const Playlists: FC<PlaylistsType> = ({ playlists }) => {
                       variant={"body1"}
                       component={"h1"}
                     >
-                      {playlist.name}
+                      {name}
                     </Typography>
                     <Typography className="text-white">
-                      {`By ${playlist.owner.display_name}`}
+                      {`By ${owner.display_name}`}
                     </Typography>
                   </CardContent>
                 </CardActionArea>

@@ -55,3 +55,13 @@ export type Release = {
   images: Image[];
   name: string;
 };
+
+export type Datatype = {
+  href: string;
+  items: Artist[];
+  limit: number;
+  next: null;
+  offset: number;
+  previous: null;
+  total: number;
+};

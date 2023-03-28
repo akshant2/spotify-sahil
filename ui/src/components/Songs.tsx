@@ -1,11 +1,7 @@
 import React, { FC } from "react";
 import { Song } from "../types";
+import UtilFunction from "../Utilities/UtilFunction";
 
-function msToMinutes(ms: number) {
-  const minutes = Math.floor(ms / 60000);
-  const seconds = ((ms % 60000) / 1000).toFixed(0);
-  return `${minutes}:${+seconds < 10 ? "0" : ""}${seconds}`;
-}
 export const Songs: FC<{ songs: Song[] }> = ({ songs }) => {
   return (
     <div className="bg-black flex flex-col">
@@ -42,21 +38,21 @@ export const Songs: FC<{ songs: Song[] }> = ({ songs }) => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {songs.map((song, index) => {
+                {songs.map(({ id, album, name, duration_ms }, index) => {
                   return (
-                    <tr key={song.id}>
+                    <tr key={id}>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
                         {index + 1}
                       </td>
                       <td className="px-6 py-4 flex text-sm font-medium text-white whitespace-nowrap">
-                        <img src={song.album.images[2].url} />
-                        <div className="p-2">{song.name}</div>
+                        <img src={album.images[2].url} />
+                        <div className="p-2">{name}</div>
                       </td>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {song.album.name}
+                        {album.name}
                       </td>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {msToMinutes(song.duration_ms)}
+                        {UtilFunction(duration_ms)}
                       </td>
                     </tr>
                   );

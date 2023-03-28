@@ -6,7 +6,6 @@ export default function Authorize() {
   const [accessToken, setAccessToken] = useState("");
 
   useEffect(() => {
-    //API access token
     const authParameters = {
       method: "POST",
       headers: {

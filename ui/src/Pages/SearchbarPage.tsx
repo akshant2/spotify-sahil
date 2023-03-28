@@ -2,14 +2,14 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { Button, Input, TextField } from "@material-ui/core";
 
 import { Album, Song, Artist, Playlist } from "../types";
-import { Albums } from "./Albums";
-import { Songs } from "./Songs";
-import { Artists } from "./Artists";
+import { Albums } from "../components/Albums";
+import { Songs } from "../components/Songs";
+import { Artists } from "../components/Artists";
 import { Clear, Home, Search } from "@material-ui/icons";
-import { Playlists } from "./Playlists";
-import Authorize from "./Authorize";
+import { Playlists } from "../components/Playlists";
+import Authorize from "../Utilities/Authorize";
 
-export default function Searchbar() {
+export default function SearchbarPage() {
   const [searchInput, setSearchInput] = useState("");
   const [artist, setArtist] = useState<Artist[]>([]);
   const [album, setAlbums] = useState<Album[]>([]);
@@ -69,7 +69,10 @@ export default function Searchbar() {
       <div className="flex-1">
         <ul className="pt-2 pb-4 space-y-1 text-sm">
           <li className="rounded-sm">
-            <a href="/" className="flex items-center p-2 space-x-3 rounded-md">
+            <a
+              href="/dashboard"
+              className="flex items-center p-2 space-x-3 rounded-md"
+            >
               <span className="text-xm font-bold text-black hover:underline">
                 <Home /> Home
               </span>

@@ -6,13 +6,13 @@ import {
   CardContent,
   Typography,
 } from "@material-ui/core";
-import Sidebar from "./Sidebar";
+import Sidebar from "../components/Sidebar";
 import { Link } from "react-router-dom";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { Release } from "../types";
-import Authorize from "./Authorize";
+import Authorize from "../Utilities/Authorize";
 
-export default function Dashboard() {
+export default function DashboardPage() {
   const [releases, setRelease] = useState<Release[]>([]);
   const accessToken = Authorize();
 
@@ -55,15 +55,15 @@ export default function Dashboard() {
         </h1>
       </div>
       <div className="bg-gray-600 p-2 ml-72 grid grid-rows-5 sm:grid-cols-5 md:grid-cols-5 gap-2">
-        {releases?.map((release) => {
+        {releases?.map(({ id, images, name }) => {
           return (
-            <Fragment key={release.id}>
+            <Fragment key={id}>
               <Card className="bg-gray-800 h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
                 <CardActionArea>
-                  <Link to={`/album/${release.id}`}>
+                  <Link to={`/album/${id}`}>
                     <img
                       className="object-contain h-48 2-96"
-                      src={release.images[0].url}
+                      src={images[0].url}
                     />
                   </Link>
                   <CardContent>
@@ -73,7 +73,7 @@ export default function Dashboard() {
                       variant={"body1"}
                       component={"h1"}
                     >
-                      {release.name}
+                      {name}
                     </Typography>
                   </CardContent>
                 </CardActionArea>

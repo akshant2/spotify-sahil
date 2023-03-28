@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AlbumSong } from "../types";
-import Authorize from "./Authorize";
-
-export default function AlbumSongs() {
-  const [albumSongs, setAlbumSongs] = useState<AlbumSong[]>([]);
+import Authorize from "../Utilities/Authorize";
+import UtilFunction from "../Utilities/UtilFunction";
+export default function AlbumPage() {
+  const [albumSongs, setAlbumSongs] = useState<AlbumSong[] | null>(null);
 
   const { id } = useParams();
 
   const accessToken = Authorize();
-  const msToMinutes = (ms: number) => {
-    const minutes = Math.floor(ms / 60000);
-    const seconds = ((ms % 60000) / 1000).toFixed(0);
-    return `${minutes}:${+seconds < 10 ? "0" : ""}${seconds}`;
-  };
-
   useEffect(() => {
-    const getTracks = () => {
+    const songs = () => {
       const albumParameters = {
         method: "GET",
         headers: {
@@ -30,7 +24,7 @@ export default function AlbumSongs() {
           setAlbumSongs(data.items);
         });
     };
-    if (accessToken) getTracks();
+    if (accessToken) songs();
   }, [accessToken]);
 
   return (
@@ -62,17 +56,17 @@ export default function AlbumSongs() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {albumSongs?.map((track) => {
+                {albumSongs?.map(({ id, track_number, name, duration_ms }) => {
                   return (
-                    <tr key={track.id}>
+                    <tr key={id}>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {track.track_number}
+                        {track_number}
                       </td>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {track.name}
+                        {name}
                       </td>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {msToMinutes(track.duration_ms)}
+                        {UtilFunction(duration_ms)}
                       </td>
                     </tr>
                   );

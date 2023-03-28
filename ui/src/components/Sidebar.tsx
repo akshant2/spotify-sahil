@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "@material-ui/core";
 import { Add, Home, LibraryAdd, Search } from "@material-ui/icons";
 
 export default function Sidebar() {

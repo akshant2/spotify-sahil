@@ -3,18 +3,14 @@ import { useParams } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { PlaylistSong } from "../types";
-import Authorize from "./Authorize";
-export default function PlaylistSongs() {
+import Authorize from "../Utilities/Authorize";
+import UtilFunction from "../Utilities/UtilFunction";
+export default function PlaylistPage() {
   const [playlistSongs, setPlaylistSongs] = useState<PlaylistSong[]>([]);
 
   const { id } = useParams();
 
   const accessToken = Authorize();
-  const msToMinutes = (ms: number) => {
-    const minutes = Math.floor(ms / 60000);
-    const seconds = ((ms % 60000) / 1000).toFixed(0);
-    return `${minutes}:${+seconds < 10 ? "0" : ""}${seconds}`;
-  };
 
   useEffect(() => {
     const getPlaylist = () => {
@@ -91,24 +87,24 @@ export default function PlaylistSongs() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {playlistSongs?.map((music, index) => {
+                  {playlistSongs?.map(({ track, added_at }, index) => {
                     return (
                       <tr key={index}>
                         <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
                           {index + 1}
                         </td>
                         <td className="px-6 py-4 flex text-sm font-medium text-white whitespace-nowrap">
-                          <img src={music.track.album.images[2].url} />
-                          <div className="p-2">{music.track.name}</div>
+                          <img src={track.album.images[2].url} />
+                          <div className="p-2">{track.name}</div>
                         </td>
                         <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                          {music.track.album.name}
+                          {track.album.name}
                         </td>
                         <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                          {music.added_at}
+                          {added_at}
                         </td>
                         <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                          {msToMinutes(music.track.duration_ms)}
+                          {UtilFunction(track.duration_ms)}
                         </td>
                       </tr>
                     );
