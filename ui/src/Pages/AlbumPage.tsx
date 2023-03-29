@@ -20,7 +20,7 @@ export default function AlbumPage() {
       };
       fetch(`https://api.spotify.com/v1/albums/${id}/tracks`, albumParameters)
         .then((response) => response.json())
-        .then((data) => {
+        .then((data: Datatype<AlbumSong>) => {
           setAlbumSongs(data.items);
         });
     };

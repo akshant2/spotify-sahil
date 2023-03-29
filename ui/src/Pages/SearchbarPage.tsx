@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Button, TextField } from "@material-ui/core";
 
-import { Album, Song, Artist, Playlist } from "../types";
+import { Album, Song, Artist, Playlist, Datatype } from "../types";
 import { Albums } from "../components/Albums";
 import { Songs } from "../components/Songs";
 import { Artists } from "../components/Artists";
@@ -44,7 +44,7 @@ export default function SearchbarPage() {
       artistParameters
     )
       .then((response) => response.json())
-      .then((data) => {
+      .then((data: Datatype<Album | Artist | Song | Playlist>) => {
         setArtist(data.artists.items);
         setSongs(data.tracks.items);
         setAlbums(data.albums.items);

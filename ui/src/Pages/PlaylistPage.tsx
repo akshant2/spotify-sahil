@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-import { PlaylistSong } from "../types";
+import { Datatype, PlaylistSong } from "../types";
 import Authorize from "../Utilities/Authorize";
 import UtilFunction from "../Utilities/UtilFunction";
 export default function PlaylistPage() {
@@ -26,7 +26,7 @@ export default function PlaylistPage() {
         playlistParameters
       )
         .then((response) => response.json())
-        .then((data) => {
+        .then((data: Datatype<PlaylistSong>) => {
           setPlaylistSongs(data.items);
         });
     };

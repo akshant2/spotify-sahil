@@ -9,7 +9,7 @@ import {
 import Sidebar from "../components/Sidebar";
 import { Link } from "react-router-dom";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-import { Release } from "../types";
+import { Datatype, Release } from "../types";
 import Authorize from "../Utilities/Authorize";
 
 export default function DashboardPage() {
@@ -27,7 +27,7 @@ export default function DashboardPage() {
       };
       fetch("https://api.spotify.com/v1/browse/new-releases", releaseParameters)
         .then((response) => response.json())
-        .then((data) => {
+        .then((data: Datatype<Release>) => {
           setRelease(data.albums.items);
         });
     };
