@@ -12,18 +12,18 @@ export const Albums: FC<AlbumType> = ({ albums }) => {
   return (
     <div>
       <div className="bg-gray-600 p-2 grid grid-rows-5 sm:grid-cols-5 md:grid-cols-5 gap-2">
-        {albums.map(({ id, images, name, type }) => {
+        {albums.map((album, i) => {
           return (
-            <Fragment key={id}>
+            <Fragment key={i}>
               <Card className="bg-gray-800 h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
                 <CardActionArea>
-                  <Link to={`/album/${id}`}>
+                  <Link to={`/album/${album.id}`}>
                     <img
                       className="object-contain h-48 2-96"
-                      src={images[0].url}
+                      src={album.images[0].url}
                     />
                   </Link>
-                  <a href={`http://localhost:3000/album/${id}`}></a>
+                  <a href={`http://localhost:3000/album/${album.id}`}></a>
                   <CardContent>
                     <Typography
                       className="text-white"
@@ -31,9 +31,9 @@ export const Albums: FC<AlbumType> = ({ albums }) => {
                       variant={"body1"}
                       component={"h1"}
                     >
-                      {name}
+                      {album.name}
                     </Typography>
-                    <Typography className="text-white">{type}</Typography>
+                    <Typography className="text-white">{album.type}</Typography>
                   </CardContent>
                 </CardActionArea>
               </Card>

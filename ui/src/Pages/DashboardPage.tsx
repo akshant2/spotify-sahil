@@ -55,15 +55,15 @@ export default function DashboardPage() {
         </h1>
       </div>
       <div className="bg-gray-600 p-2 ml-72 grid grid-rows-5 sm:grid-cols-5 md:grid-cols-5 gap-2">
-        {releases?.map(({ id, images, name }) => {
+        {releases?.map((release, i) => {
           return (
-            <Fragment key={id}>
+            <Fragment key={i}>
               <Card className="bg-gray-800 h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
                 <CardActionArea>
-                  <Link to={`/album/${id}`}>
+                  <Link to={`/album/${release.id}`}>
                     <img
                       className="object-contain h-48 2-96"
-                      src={images[0].url}
+                      src={release.images[0].url}
                     />
                   </Link>
                   <CardContent>
@@ -73,7 +73,7 @@ export default function DashboardPage() {
                       variant={"body1"}
                       component={"h1"}
                     >
-                      {name}
+                      {release.name}
                     </Typography>
                   </CardContent>
                 </CardActionArea>

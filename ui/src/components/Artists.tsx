@@ -11,12 +11,12 @@ export const Artists: FC<ArtistType> = ({ artists }) => {
   return (
     <div>
       <div className="bg-gray-600 p-2 grid grid-rows-5 sm:grid-cols-5 md:grid-cols-5 gap-2">
-        {artists.map(({ id, images, name, type }) => {
+        {artists.map((artist, i) => {
           return (
-            <Fragment key={id}>
+            <Fragment key={i}>
               <Card className="bg-gray-800 h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
                 <CardActionArea>
-                  <img className="rounded-full" src={images[0]?.url} />
+                  <img className="rounded-full" src={artist.images[0]?.url} />
                   <CardContent>
                     <Typography
                       className="text-white"
@@ -24,9 +24,11 @@ export const Artists: FC<ArtistType> = ({ artists }) => {
                       variant={"body1"}
                       component={"h1"}
                     >
-                      {name}
+                      {artist.name}
                     </Typography>
-                    <Typography className="text-white">{type}</Typography>
+                    <Typography className="text-white">
+                      {artist.type}
+                    </Typography>
                   </CardContent>
                 </CardActionArea>
               </Card>

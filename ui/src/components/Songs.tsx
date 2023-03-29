@@ -38,21 +38,21 @@ export const Songs: FC<{ songs: Song[] }> = ({ songs }) => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {songs.map(({ id, album, name, duration_ms }, index) => {
+                {songs.map((song, i) => {
                   return (
-                    <tr key={id}>
+                    <tr key={i}>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {index + 1}
+                        {i + 1}
                       </td>
                       <td className="px-6 py-4 flex text-sm font-medium text-white whitespace-nowrap">
-                        <img src={album.images[2].url} />
-                        <div className="p-2">{name}</div>
+                        <img src={song.album.images[2].url} />
+                        <div className="p-2">{song.name}</div>
                       </td>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {album.name}
+                        {song.album.name}
                       </td>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {UtilFunction(duration_ms)}
+                        {UtilFunction(song.duration_ms)}
                       </td>
                     </tr>
                   );

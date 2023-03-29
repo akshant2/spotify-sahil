@@ -87,24 +87,24 @@ export default function PlaylistPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {playlistSongs?.map(({ track, added_at }, index) => {
+                  {playlistSongs?.map((playlistTrack, i) => {
                     return (
-                      <tr key={index}>
+                      <tr key={i}>
                         <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                          {index + 1}
+                          {i + 1}
                         </td>
                         <td className="px-6 py-4 flex text-sm font-medium text-white whitespace-nowrap">
-                          <img src={track.album.images[2].url} />
-                          <div className="p-2">{track.name}</div>
+                          <img src={playlistTrack.track.album.images[2].url} />
+                          <div className="p-2">{playlistTrack.track.name}</div>
                         </td>
                         <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                          {track.album.name}
+                          {playlistTrack.track.album.name}
                         </td>
                         <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                          {added_at}
+                          {playlistTrack.added_at}
                         </td>
                         <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                          {UtilFunction(track.duration_ms)}
+                          {UtilFunction(playlistTrack.track.duration_ms)}
                         </td>
                       </tr>
                     );

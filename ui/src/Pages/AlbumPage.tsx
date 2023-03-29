@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AlbumSong } from "../types";
+import { AlbumSong, Datatype } from "../types";
 import Authorize from "../Utilities/Authorize";
 import UtilFunction from "../Utilities/UtilFunction";
 export default function AlbumPage() {
-  const [albumSongs, setAlbumSongs] = useState<AlbumSong[] | null>(null);
+  const [albumSongs, setAlbumSongs] = useState<AlbumSong[]>([]);
 
   const { id } = useParams();
 
@@ -56,17 +56,17 @@ export default function AlbumPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {albumSongs?.map(({ id, track_number, name, duration_ms }) => {
+                {albumSongs?.map((albumTrack, i) => {
                   return (
-                    <tr key={id}>
+                    <tr key={i}>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {track_number}
+                        {albumTrack.track_number}
                       </td>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {name}
+                        {albumTrack.name}
                       </td>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {UtilFunction(duration_ms)}
+                        {UtilFunction(albumTrack.duration_ms)}
                       </td>
                     </tr>
                   );

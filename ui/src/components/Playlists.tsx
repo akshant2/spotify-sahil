@@ -11,18 +11,18 @@ export const Playlists: FC<PlaylistsType> = ({ playlists }) => {
   return (
     <div>
       <div className="bg-gray-600 p-2 grid grid-rows-5 sm:grid-cols-5 md:grid-cols-5 gap-2">
-        {playlists.map(({ id, images, name, owner }) => {
+        {playlists.map((playlist, i) => {
           return (
-            <Fragment key={id}>
+            <Fragment key={i}>
               <Card className="bg-gray-800 h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
                 <CardActionArea>
-                  <Link to={`/playlist/${id}`}>
+                  <Link to={`/playlist/${playlist.id}`}>
                     <img
                       className="object-contain h-48 2-96"
-                      src={images[0].url}
+                      src={playlist.images[0].url}
                     />
                   </Link>
-                  <a href={`http://localhost:3000/playlist/${id}`}></a>
+                  <a href={`http://localhost:3000/playlist/${playlist.id}`}></a>
                   <CardContent>
                     <Typography
                       className="text-white"
@@ -30,10 +30,10 @@ export const Playlists: FC<PlaylistsType> = ({ playlists }) => {
                       variant={"body1"}
                       component={"h1"}
                     >
-                      {name}
+                      {playlist.name}
                     </Typography>
                     <Typography className="text-white">
-                      {`By ${owner.display_name}`}
+                      {`By ${playlist.owner.display_name}`}
                     </Typography>
                   </CardContent>
                 </CardActionArea>

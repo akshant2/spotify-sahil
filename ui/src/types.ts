@@ -56,9 +56,8 @@ export type Release = {
   name: string;
 };
 
-export type Datatype = {
+export type Datatype<T> = {
   href: string;
-  items: Artist[];
   limit: number;
   next: null;
   offset: number;
