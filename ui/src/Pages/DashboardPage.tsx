@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import Sidebar from "../components/Sidebar";
 import { Link } from "react-router-dom";
-import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { Datatype, Release } from "../types";
 import Authorize from "../Utilities/Authorize";
 
@@ -38,16 +37,6 @@ export default function DashboardPage() {
     <div>
       <div className="flex">
         <Sidebar />
-      </div>
-      <div className="bg-black w-full sticky top-0 p-2 flex items-center justify-between">
-        <div className="flex items-center">
-          <Button className="rounded-full bg-black ml-72 w-8 h-8 text-white text-3xl">
-            <ArrowBackIos />
-          </Button>
-          <Button className="rounded-full bg-black w-8 h-8 text-white text-3xl">
-            <ArrowForwardIos />
-          </Button>
-        </div>
       </div>
       <div className="bg-gray-600">
         <h1 className="p-4 ml-72 text-black text-2xl font-bold hover:underline">

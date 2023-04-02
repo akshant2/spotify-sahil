@@ -3,6 +3,8 @@ export type Album = {
   images: Image[];
   name: string;
   type: string;
+
+  tracks: Track;
   items: Album[];
 };
 
@@ -21,8 +23,6 @@ export type Song = {
   album: Album;
   name: string;
   duration_ms: number;
-
-  items: Song[];
 };
 
 export type Playlist = {
@@ -30,6 +30,7 @@ export type Playlist = {
   images: Image[];
   name: string;
   owner: Owner;
+
   items: Playlist[];
 };
 
@@ -37,6 +38,7 @@ export type Owner = {
   display_name: string;
 };
 export type AlbumSong = {
+  tracks: Track;
   track_number: number;
   name: string;
   duration_ms: number;
@@ -51,6 +53,13 @@ export type Track = {
   album: Album;
   name: string;
   duration_ms: number;
+  track_number: number;
+  track: Track;
+
+  tracks: Track;
+  id: string;
+  added_at: number;
+  items: Track[];
 };
 
 export type Release = {
@@ -60,19 +69,15 @@ export type Release = {
 };
 
 export type Datatype<T> = {
-  href: string;
-
   items: T[];
-
   artists: Artist;
   albums: Album;
 
-  tracks: Song;
+  tracks: Track;
 
   playlists: Playlist;
-  limit: number;
-  next: null;
-  offset: number;
-  previous: null;
-  total: number;
+};
+
+export type AccessToken = {
+  access_token: string;
 };

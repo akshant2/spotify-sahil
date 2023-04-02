@@ -6,9 +6,9 @@ const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=${process.env
 function LoginPage() {
   return (
     <div className="h-screen bg-black">
-      <div className="justify-center mt-6">
+      <div className="flex flex-col items-center justify-center mt-6">
         <img
-          className="justify-center w-96 h-full"
+          className="w-96 h-full"
           src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-download-logo-30.png"
         />
         <Button className="w-96 px-4 py-2 text-white bg-gray-600 rounded-md hover:bg-blue-400 bg-black">

@@ -5,7 +5,7 @@ import { Album, Song, Artist, Playlist, Datatype } from "../types";
 import { Albums } from "../components/Albums";
 import { Songs } from "../components/Songs";
 import { Artists } from "../components/Artists";
-import { Clear, Home, Search } from "@material-ui/icons";
+import { Clear, Home } from "@material-ui/icons";
 import { Playlists } from "../components/Playlists";
 import Authorize from "../Utilities/Authorize";
 
@@ -15,7 +15,7 @@ export default function SearchbarPage() {
   const [album, setAlbums] = useState<Album[]>([]);
   const [song, setSongs] = useState<Song[]>([]);
   const [playlist, setPlaylist] = useState<Playlist[]>([]);
-  const [optionSelected, setOptionSelection] = useState<string>("");
+
   const accessToken = Authorize();
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(event.target.value);
@@ -30,7 +30,7 @@ export default function SearchbarPage() {
     }
   }, [searchInput]);
 
-  const search = () => {
+  const artists = () => {
     const artistParameters = {
       method: "GET",
       headers: {
@@ -40,28 +40,81 @@ export default function SearchbarPage() {
     };
     fetch(
       `https://api.spotify.com/v1/search?q= 
-        ${searchInput}&type=artist,album,track,playlist&?include_&market=US&limit=50`,
+        ${searchInput}&type=artist&?include_&market=US&limit=50`,
       artistParameters
     )
       .then((response) => response.json())
-      .then((data: Datatype<Album | Artist | Song | Playlist>) => {
+      .then((data: Datatype<Artist>) => {
         setArtist(data.artists.items);
-        setSongs(data.tracks.items);
-        setAlbums(data.albums.items);
-        setPlaylist(data.playlists.items);
+        setSongs([]);
+        setAlbums([]);
+        setPlaylist([]);
       });
   };
 
-  const renderSelection = () => {
-    if (optionSelected === "artists") {
-      return <Artists artists={artist} />;
-    } else if (optionSelected === "songs") {
-      return <Songs songs={song} />;
-    } else if (optionSelected === "albums") {
-      return <Albums albums={album} />;
-    } else if (optionSelected === "playlists") {
-      return <Playlists playlists={playlist} />;
-    }
+  const songs = () => {
+    const songParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    fetch(
+      `https://api.spotify.com/v1/search?q= 
+        ${searchInput}&type=track&?include_&market=US&limit=50`,
+      songParameters
+    )
+      .then((response) => response.json())
+      .then((data: Datatype<Song>) => {
+        setSongs(data.tracks.items);
+        setArtist([]);
+        setAlbums([]);
+        setPlaylist([]);
+      });
+  };
+
+  const albums = () => {
+    const albumParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    fetch(
+      `https://api.spotify.com/v1/search?q= 
+        ${searchInput}&type=album&?include_&market=US&limit=50`,
+      albumParameters
+    )
+      .then((response) => response.json())
+      .then((data: Datatype<Album>) => {
+        setAlbums(data.albums.items);
+        setArtist([]);
+        setSongs([]);
+        setPlaylist([]);
+      });
+  };
+  const playlists = () => {
+    const playlistParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    fetch(
+      `https://api.spotify.com/v1/search?q= 
+        ${searchInput}&type=playlist&?include_&market=US&limit=50`,
+      playlistParameters
+    )
+      .then((response) => response.json())
+      .then((data: Datatype<Playlist>) => {
+        setPlaylist(data.playlists.items);
+        setArtist([]);
+        setSongs([]);
+        setAlbums([]);
+      });
   };
 
   return (
@@ -82,19 +135,10 @@ export default function SearchbarPage() {
       </div>
       <div className="flex ml-2 items-center">
         <div className="flex border border-blue-200 rounded-full">
-          <Button
-            className="text-white bg-black border-l rounded-full"
-            type="button"
-            variant="contained"
-            size="medium"
-            onClick={search}
-          >
-            <Search />
-          </Button>
           <TextField
             id="search-bar"
             className="px-4 py-2 w-80"
-            placeholder="Artist, Songs or Tracks"
+            placeholder="Artist, Songs, Tracks or Playlist"
             onChange={handleChange}
             value={searchInput}
             autoComplete="on"
@@ -106,29 +150,32 @@ export default function SearchbarPage() {
       </div>
       <Button
         className="px-4 text-white bg-black border-l rounded-full"
-        onClick={() => setOptionSelection("artists")}
+        onClick={() => artists()}
       >
         Artist
       </Button>
       <Button
         className="px-4 text-white bg-black border-l rounded-full"
-        onClick={() => setOptionSelection("songs")}
+        onClick={() => songs()}
       >
         Songs
       </Button>
       <Button
         className="px-4 text-white bg-black border-l rounded-full"
-        onClick={() => setOptionSelection("albums")}
+        onClick={() => albums()}
       >
         Albums
       </Button>
       <Button
         className="px-4 text-white bg-black border-l rounded-full"
-        onClick={() => setOptionSelection("playlists")}
+        onClick={() => playlists()}
       >
-        Playlists
+        Playlist
       </Button>
-      {renderSelection()}
+      <Artists artists={artist} />
+      <Songs songs={song} />
+      <Albums albums={album} />
+      <Playlists playlists={playlist} />
     </div>
   );
 }

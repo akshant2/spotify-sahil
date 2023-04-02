@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { AccessToken, Datatype } from "../types";
 
 const client_id = `${process.env.REACT_APP_CLIENT_ID}`;
 const client_secret = `${process.env.REACT_APP_CLIENT_SECRET}`;
@@ -15,7 +16,7 @@ export default function Authorize() {
     };
     fetch("https://accounts.spotify.com/api/token", authParameters)
       .then((result) => result.json())
-      .then((data) => {
+      .then((data: AccessToken) => {
         setAccessToken(data.access_token);
       });
   }, []);

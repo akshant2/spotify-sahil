@@ -21,13 +21,10 @@ export default function PlaylistPage() {
           Authorization: `Bearer ${accessToken}`,
         },
       };
-      fetch(
-        `https://api.spotify.com/v1/playlists/${id}/tracks`,
-        playlistParameters
-      )
+      fetch(`https://api.spotify.com/v1/playlists/${id}`, playlistParameters)
         .then((response) => response.json())
         .then((data: Datatype<PlaylistSong>) => {
-          setPlaylistSongs(data.items);
+          setPlaylistSongs(data.tracks.items);
         });
     };
     if (accessToken) getPlaylist();
