@@ -4,7 +4,7 @@ import { Button } from "@material-ui/core";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { Datatype, PlaylistSong } from "../types";
 import Authorize from "../Utilities/Authorize";
-import UtilFunction from "../Utilities/UtilFunction";
+import { PlaylistTracks } from "../components/PlaylistTracks";
 export default function PlaylistPage() {
   const [playlistSongs, setPlaylistSongs] = useState<PlaylistSong[]>([]);
 
@@ -13,21 +13,23 @@ export default function PlaylistPage() {
   const accessToken = Authorize();
 
   useEffect(() => {
-    const getPlaylist = () => {
-      const playlistParameters = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
+    if (accessToken) {
+      const getPlaylistSongs = () => {
+        const playlistParameters = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+        fetch(`https://api.spotify.com/v1/playlists/${id}`, playlistParameters)
+          .then((response) => response.json())
+          .then((data: Datatype<PlaylistSong>) => {
+            setPlaylistSongs(data.tracks.items);
+          });
       };
-      fetch(`https://api.spotify.com/v1/playlists/${id}`, playlistParameters)
-        .then((response) => response.json())
-        .then((data: Datatype<PlaylistSong>) => {
-          setPlaylistSongs(data.tracks.items);
-        });
-    };
-    if (accessToken) getPlaylist();
+      getPlaylistSongs();
+    }
   }, [accessToken]);
 
   return (
@@ -44,74 +46,7 @@ export default function PlaylistPage() {
           </Button>
         </div>
       </div>
-      <div className="bg-black flex flex-col">
-        <div className="overflow-x-auto">
-          <div className="p-1.5 w-full inline-block align-middle">
-            <div className="overflow-hidden border rounded-lg">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-black">
-                  <tr>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-xs font-bold text-left text-white uppercase"
-                    >
-                      #
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-xs font-bold text-left text-white uppercase"
-                    >
-                      Title
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-xs font-bold text-left text-white uppercase"
-                    >
-                      Album
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-xs font-bold text-left text-white uppercase"
-                    >
-                      Date added
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-xs font-bold text-left text-white uppercase"
-                    >
-                      Duration
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {playlistSongs?.map((playlistTrack, i) => {
-                    return (
-                      <tr key={i}>
-                        <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                          {i + 1}
-                        </td>
-                        <td className="px-6 py-4 flex text-sm font-medium text-white whitespace-nowrap">
-                          <img src={playlistTrack.track.album.images[2].url} />
-                          <div className="p-2">{playlistTrack.track.name}</div>
-                        </td>
-                        <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                          {playlistTrack.track.album.name}
-                        </td>
-                        <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                          {playlistTrack.added_at}
-                        </td>
-                        <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                          {UtilFunction(playlistTrack.track.duration_ms)}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PlaylistTracks playlistTracks={playlistSongs} />
     </div>
   );
 }

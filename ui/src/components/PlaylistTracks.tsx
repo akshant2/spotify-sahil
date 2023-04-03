@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import { Song } from "../types";
 import MsToMinutes from "../Utilities/MsToMinutes";
+import { PlaylistSong } from "../types";
 
-export const Songs: FC<{ songs: Song[] }> = ({ songs }) => {
+export const PlaylistTracks: FC<PlaylistTrackType> = ({ playlistTracks }) => {
   return (
     <div className="bg-black flex flex-col">
       <div className="overflow-x-auto">
@@ -33,26 +33,35 @@ export const Songs: FC<{ songs: Song[] }> = ({ songs }) => {
                     scope="col"
                     className="px-6 py-3 text-xs font-bold text-left text-white uppercase"
                   >
+                    Date added
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-xs font-bold text-left text-white uppercase"
+                  >
                     Duration
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {songs.map((song, i) => {
+                {playlistTracks?.map((playlistTrack, i) => {
                   return (
                     <tr key={i}>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
                         {i + 1}
                       </td>
                       <td className="px-6 py-4 flex text-sm font-medium text-white whitespace-nowrap">
-                        <img src={song.album.images[2].url} />
-                        <div className="p-2">{song.name}</div>
+                        <img src={playlistTrack.track.album.images[2].url} />
+                        <div className="p-2">{playlistTrack.track.name}</div>
                       </td>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {song.album.name}
+                        {playlistTrack.track.album.name}
                       </td>
                       <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {MsToMinutes(song.duration_ms)}
+                        {playlistTrack.added_at}
+                      </td>
+                      <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
+                        {MsToMinutes(playlistTrack.track.duration_ms)}
                       </td>
                     </tr>
                   );
@@ -65,3 +74,5 @@ export const Songs: FC<{ songs: Song[] }> = ({ songs }) => {
     </div>
   );
 };
+
+type PlaylistTrackType = { playlistTracks: PlaylistSong[] };

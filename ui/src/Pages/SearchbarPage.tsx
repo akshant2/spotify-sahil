@@ -30,91 +30,99 @@ export default function SearchbarPage() {
     }
   }, [searchInput]);
 
-  const artists = () => {
-    const artistParameters = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
-    fetch(
-      `https://api.spotify.com/v1/search?q= 
+  const getArtists = () => {
+    if (accessToken) {
+      const artistParameters = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      fetch(
+        `https://api.spotify.com/v1/search?q= 
         ${searchInput}&type=artist&?include_&market=US&limit=50`,
-      artistParameters
-    )
-      .then((response) => response.json())
-      .then((data: Datatype<Artist>) => {
-        setArtist(data.artists.items);
-        setSongs([]);
-        setAlbums([]);
-        setPlaylist([]);
-      });
+        artistParameters
+      )
+        .then((response) => response.json())
+        .then((data: Datatype<Artist>) => {
+          setArtist(data.artists.items);
+          setSongs([]);
+          setAlbums([]);
+          setPlaylist([]);
+        });
+    }
   };
 
-  const songs = () => {
-    const songParameters = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
-    fetch(
-      `https://api.spotify.com/v1/search?q= 
+  const getSongs = () => {
+    if (accessToken) {
+      const songParameters = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      fetch(
+        `https://api.spotify.com/v1/search?q= 
         ${searchInput}&type=track&?include_&market=US&limit=50`,
-      songParameters
-    )
-      .then((response) => response.json())
-      .then((data: Datatype<Song>) => {
-        setSongs(data.tracks.items);
-        setArtist([]);
-        setAlbums([]);
-        setPlaylist([]);
-      });
+        songParameters
+      )
+        .then((response) => response.json())
+        .then((data: Datatype<Song>) => {
+          setSongs(data.tracks.items);
+          setArtist([]);
+          setAlbums([]);
+          setPlaylist([]);
+        });
+    }
   };
 
-  const albums = () => {
-    const albumParameters = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
-    fetch(
-      `https://api.spotify.com/v1/search?q= 
+  const getAlbums = () => {
+    if (accessToken) {
+      const albumParameters = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      fetch(
+        `https://api.spotify.com/v1/search?q= 
         ${searchInput}&type=album&?include_&market=US&limit=50`,
-      albumParameters
-    )
-      .then((response) => response.json())
-      .then((data: Datatype<Album>) => {
-        setAlbums(data.albums.items);
-        setArtist([]);
-        setSongs([]);
-        setPlaylist([]);
-      });
+        albumParameters
+      )
+        .then((response) => response.json())
+        .then((data: Datatype<Album>) => {
+          setAlbums(data.albums.items);
+          setArtist([]);
+          setSongs([]);
+          setPlaylist([]);
+        });
+    }
   };
-  const playlists = () => {
-    const playlistParameters = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
-    fetch(
-      `https://api.spotify.com/v1/search?q= 
+  const getPlaylists = () => {
+    if (accessToken) {
+      const playlistParameters = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      fetch(
+        `https://api.spotify.com/v1/search?q= 
         ${searchInput}&type=playlist&?include_&market=US&limit=50`,
-      playlistParameters
-    )
-      .then((response) => response.json())
-      .then((data: Datatype<Playlist>) => {
-        setPlaylist(data.playlists.items);
-        setArtist([]);
-        setSongs([]);
-        setAlbums([]);
-      });
+        playlistParameters
+      )
+        .then((response) => response.json())
+        .then((data: Datatype<Playlist>) => {
+          setPlaylist(data.playlists.items);
+          setArtist([]);
+          setSongs([]);
+          setAlbums([]);
+        });
+    }
   };
 
   return (
@@ -150,28 +158,29 @@ export default function SearchbarPage() {
       </div>
       <Button
         className="px-4 text-white bg-black border-l rounded-full"
-        onClick={() => artists()}
+        onClick={() => getArtists()}
       >
         Artist
       </Button>
       <Button
         className="px-4 text-white bg-black border-l rounded-full"
-        onClick={() => songs()}
+        onClick={() => getSongs()}
       >
         Songs
       </Button>
       <Button
         className="px-4 text-white bg-black border-l rounded-full"
-        onClick={() => albums()}
+        onClick={() => getAlbums()}
       >
         Albums
       </Button>
       <Button
         className="px-4 text-white bg-black border-l rounded-full"
-        onClick={() => playlists()}
+        onClick={() => getPlaylists()}
       >
         Playlist
       </Button>
+
       <Artists artists={artist} />
       <Songs songs={song} />
       <Albums albums={album} />

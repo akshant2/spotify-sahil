@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
 import {
-  Button,
   Card,
   CardActionArea,
   CardContent,
@@ -16,21 +15,26 @@ export default function DashboardPage() {
   const accessToken = Authorize();
 
   useEffect(() => {
-    const release = () => {
-      const releaseParameters = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
+    if (accessToken) {
+      const getRelease = () => {
+        const releaseParameters = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+        fetch(
+          "https://api.spotify.com/v1/browse/new-releases",
+          releaseParameters
+        )
+          .then((response) => response.json())
+          .then((data: Datatype<Release>) => {
+            setRelease(data.albums.items);
+          });
       };
-      fetch("https://api.spotify.com/v1/browse/new-releases", releaseParameters)
-        .then((response) => response.json())
-        .then((data: Datatype<Release>) => {
-          setRelease(data.albums.items);
-        });
-    };
-    if (accessToken) release();
+      getRelease();
+    }
   }, [accessToken]);
 
   return (
