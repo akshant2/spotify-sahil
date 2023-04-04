@@ -1,57 +1,30 @@
-import React, { FC } from "react";
+import React, { FC, Fragment } from "react";
 import MsToMinutes from "../Utilities/MsToMinutes";
 import { AlbumSong } from "../types";
 
 export const AlbumTracks: FC<AlbumTrackType> = ({ albumTracks }) => {
   return (
-    <div className="bg-black flex flex-col">
-      <div className="overflow-x-auto">
-        <div className="p-1.5 w-full inline-block align-middle">
-          <div className="overflow-hidden border rounded-lg">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-black">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left text-white uppercase"
-                  >
-                    #
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left text-white uppercase"
-                  >
-                    Title
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left text-white uppercase"
-                  >
-                    Duration
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {albumTracks?.map((albumTrack, i) => {
-                  return (
-                    <tr key={i}>
-                      <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {albumTrack.track_number}
-                      </td>
-                      <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {albumTrack.name}
-                      </td>
-                      <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap">
-                        {MsToMinutes(albumTrack.duration_ms)}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <div>
+      <div className="grid grid-cols-3 gap-4 text-white">
+        <div className="p-2">#</div>
+        <div className="p-2">Title</div>
+        <div className="p-2">Duration</div>
       </div>
+      {albumTracks?.map((albumTrack, i) => {
+        return (
+          <Fragment key={i}>
+            <div className="grid grid-cols-3 gap-4 border-b border-gray-800 hover:bg-gray-400">
+              <div className="p-2 text-sm text-white">
+                {albumTrack.track_number}
+              </div>
+              <div className="p-2 text-sm text-white">{albumTrack.name}</div>
+              <div className="p-2 text-sm text-white">
+                {MsToMinutes(albumTrack.duration_ms)}
+              </div>
+            </div>
+          </Fragment>
+        );
+      })}
     </div>
   );
 };

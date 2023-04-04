@@ -45,7 +45,7 @@ export default function SearchbarPage() {
         artistParameters
       )
         .then((response) => response.json())
-        .then((data: Datatype<Artist>) => {
+        .then((data: Artist) => {
           setArtist(data.artists.items);
           setSongs([]);
           setAlbums([]);

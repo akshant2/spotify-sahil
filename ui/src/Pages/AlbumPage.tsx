@@ -6,6 +6,15 @@ import { AlbumTracks } from "../components/AlbumTracks";
 
 export default function AlbumPage() {
   const [albumSongs, setAlbumSongs] = useState<AlbumSong[]>([]);
+  const [albumDetail, setAlbumDetail] = useState({
+    albumImage: " ",
+    releaseDate: " ",
+    totalSongs: " ",
+    albumName: " ",
+    type: " ",
+    artistName: " ",
+  });
+
   const { id } = useParams();
 
   const accessToken = Authorize();
@@ -24,6 +33,14 @@ export default function AlbumPage() {
           .then((response) => response.json())
           .then((data: Datatype<AlbumSong>) => {
             setAlbumSongs(data.tracks.items);
+            setAlbumDetail({
+              albumImage: data.images[0].url,
+              releaseDate: data.release_date,
+              totalSongs: data.total_tracks,
+              albumName: data.name,
+              type: data.album_type,
+              artistName: data.artists[0].name,
+            });
           });
       };
       getAlbumSongs();
@@ -31,7 +48,19 @@ export default function AlbumPage() {
   }, [accessToken]);
 
   return (
-    <div>
+    <div className="bg-black">
+      <div className="flex">
+        <img className="mt-4 w-80" src={albumDetail.albumImage} />
+        <div className="flex flex-col justify-center">
+          <h4 className="px-5 py-4 text-2xl capitalize font-medium text-white tracking-widest">
+            {albumDetail.type}
+          </h4>
+          <h1 className="px-6 text-white text-6xl">{albumDetail.albumName}</h1>
+          <p className="px-8 mt-7 text-white mb-2 text-sm">
+            {albumDetail.artistName}
+          </p>
+        </div>
+      </div>
       <AlbumTracks albumTracks={albumSongs} />
     </div>
   );
