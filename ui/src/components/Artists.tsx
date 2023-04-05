@@ -6,6 +6,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Artist } from "../types";
+import { Link } from "react-router-dom";
 
 export const Artists: FC<ArtistType> = ({ artists }) => {
   return (
@@ -16,7 +17,10 @@ export const Artists: FC<ArtistType> = ({ artists }) => {
             <Fragment key={i}>
               <Card className="bg-gray-800 h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
                 <CardActionArea>
-                  <img className="rounded-full" src={artist.images[0]?.url} />
+                  <Link to={`/artist/${artist.id}`}>
+                    <img className="rounded-full" src={artist.images[0]?.url} />
+                  </Link>
+                  <a href={`http://localhost:3000/artist/${artist.id}`}></a>
                   <CardContent>
                     <Typography
                       className="text-white"

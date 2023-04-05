@@ -11,6 +11,7 @@ export type Image = {
   url: string;
 };
 export type Artist = {
+  id: number;
   images: Image[];
   name: string;
   type: string;
@@ -88,4 +89,14 @@ export type Datatype<T> = {
 
 export type AccessToken = {
   access_token: string;
+};
+
+export type TopTracks = {
+  tracks: TopTracks[];
+
+  name: string;
+
+  duration_ms: number;
+
+  album: Album;
 };

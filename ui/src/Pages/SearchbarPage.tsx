@@ -17,9 +17,6 @@ export default function SearchbarPage() {
   const [playlist, setPlaylist] = useState<Playlist[]>([]);
 
   const accessToken = Authorize();
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(event.target.value);
-  };
 
   useEffect(() => {
     if (!searchInput) {
@@ -125,6 +122,10 @@ export default function SearchbarPage() {
     }
   };
 
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(event.target.value);
+  };
+
   return (
     <div>
       <div className="flex-1">
@@ -181,8 +182,8 @@ export default function SearchbarPage() {
         Playlist
       </Button>
 
-      <Artists artists={artist} />
       <Songs songs={song} />
+      <Artists artists={artist} />
       <Albums albums={album} />
       <Playlists playlists={playlist} />
     </div>
