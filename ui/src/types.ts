@@ -100,3 +100,11 @@ export type TopTracks = {
 
   album: Album;
 };
+
+export type createPlaylist = {
+  id: number;
+
+  owner: Owner;
+
+  items: createPlaylist[];
+};

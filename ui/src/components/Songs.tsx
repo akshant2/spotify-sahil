@@ -5,12 +5,15 @@ import MsToMinutes from "../Utilities/MsToMinutes";
 export const Songs: FC<{ songs: Song[] }> = ({ songs }) => {
   return (
     <div>
-      <div className="grid grid-cols-4 gap-4 text-gray-600">
-        <div className="p-2">#</div>
-        <div className="p-2">Title</div>
-        <div className="p-2">Album</div>
-        <div className="p-2">Duration</div>
-      </div>
+      {songs.length ? (
+        <div className="grid grid-cols-4 gap-4 text-gray-600">
+          <div className="p-2">#</div>
+          <div className="p-2">Title</div>
+          <div className="p-2">Album</div>
+          <div className="p-2">Duration</div>
+        </div>
+      ) : null}
+
       {songs.map((song, i) => {
         return (
           <Fragment key={i}>

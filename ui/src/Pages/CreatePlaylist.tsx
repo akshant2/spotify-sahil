@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Authorize from "../Utilities/Authorize";
+import { createPlaylist } from "../types";
 
 export default function CreatePlaylist() {
-  const [createPlaylist, setPlaylist] = useState<any[]>([]);
+  const [createPlaylist, setPlaylist] = useState<createPlaylist[]>([]);
 
   const userId = "314z5wjaqtaiwazqlt26ukvd7icu";
 
@@ -22,7 +23,7 @@ export default function CreatePlaylist() {
         playlistParameters
       )
         .then((response) => response.json())
-        .then((data) => {
+        .then((data: createPlaylist) => {
           console.log(data);
           setPlaylist(data.items);
         });
@@ -36,6 +37,7 @@ export default function CreatePlaylist() {
         return (
           <Fragment key={i}>
             <div>{playlist.id}</div>
+            <div>{playlist.owner.display_name}</div>
           </Fragment>
         );
       })}

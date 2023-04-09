@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Button, TextField } from "@material-ui/core";
+import { Button, FormControl, TextField } from "@material-ui/core";
 
 import { Album, Song, Artist, Playlist, Datatype } from "../types";
 import { Albums } from "../components/Albums";
@@ -52,6 +52,7 @@ export default function SearchbarPage() {
   };
 
   const getSongs = () => {
+    React.isValidElement(song);
     if (accessToken) {
       const songParameters = {
         method: "GET",
@@ -182,10 +183,10 @@ export default function SearchbarPage() {
         Playlist
       </Button>
 
-      <Songs songs={song} />
       <Artists artists={artist} />
       <Albums albums={album} />
       <Playlists playlists={playlist} />
+      <Songs songs={song} />
     </div>
   );
 }

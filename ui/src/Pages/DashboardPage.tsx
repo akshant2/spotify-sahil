@@ -51,7 +51,7 @@ export default function DashboardPage() {
         {releases?.map((release, i) => {
           return (
             <Fragment key={i}>
-              <Card className="bg-gray-800 h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
+              <Card className="bg-gray-800 h-48 lg:h-auto lg:w-48">
                 <CardActionArea>
                   <Link to={`/album/${release.id}`}>
                     <img
