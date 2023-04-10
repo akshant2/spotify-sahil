@@ -7,12 +7,8 @@ import { Authorize } from "../Utilities/Authorize";
 import { PlaylistTracks } from "../components/PlaylistTracks";
 export const PlaylistPage: FC = function () {
   const [playlistSongs, setPlaylistSongs] = useState<PlaylistSong[]>([]);
-  const [playlistDetails, setPlaylistDetails] = useState({
-    playlistImage: " ",
-    playlistName: " ",
-    type: " ",
-    ownerName: " ",
-  });
+
+  const [playlistDetails, setPlaylistDetails] = useState<playlistDetailType>();
 
   const { id } = useParams();
 
@@ -56,18 +52,25 @@ export const PlaylistPage: FC = function () {
         </div>
       </div>
       <div className="flex">
-        <img className="mt-4 w-80" src={playlistDetails.playlistImage} />
+        <img className="mt-4 w-80" src={playlistDetails?.playlistImage} />
         <div className="flex flex-col justify-center">
           <h4 className="px-5 py-4 text-2xl capitalize font-medium text-white tracking-widest">
-            {playlistDetails.type}
+            {playlistDetails?.type}
           </h4>
           <h1 className="px-6 text-white text-6xl">
-            {playlistDetails.playlistName}
+            {playlistDetails?.playlistName}
           </h1>
-          <p className="px-8 text-white mb-2 text-sm">{`By ${playlistDetails.ownerName}`}</p>
+          <p className="px-8 text-white mb-2 text-sm">{`By ${playlistDetails?.ownerName}`}</p>
         </div>
       </div>
       <PlaylistTracks playlistTracks={playlistSongs} />
     </div>
   );
+};
+
+type playlistDetailType = {
+  playlistImage: string;
+  playlistName: string;
+  type: string;
+  ownerName: string;
 };

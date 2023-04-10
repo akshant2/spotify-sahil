@@ -6,14 +6,7 @@ import { AlbumTracks } from "../components/AlbumTracks";
 
 export const AlbumPage: FC = function () {
   const [albumSongs, setAlbumSongs] = useState<AlbumSong[]>([]);
-  const [albumDetail, setAlbumDetail] = useState({
-    albumImage: "",
-    albumName: "",
-    artistName: "",
-    releaseDate: "",
-    totalSongs: "",
-    type: "",
-  });
+  const [albumDetail, setAlbumDetail] = useState<albumDetailType>();
 
   const { id } = useParams();
 
@@ -50,18 +43,27 @@ export const AlbumPage: FC = function () {
   return (
     <div className="bg-black">
       <div className="flex">
-        <img className="mt-4 w-80" src={albumDetail.albumImage} />
+        <img className="mt-4 w-80" src={albumDetail?.albumImage} />
         <div className="flex flex-col justify-center">
           <h4 className="px-5 py-4 text-2xl capitalize font-medium text-white tracking-widest">
-            {albumDetail.type}
+            {albumDetail?.type}
           </h4>
-          <h1 className="px-6 text-white text-6xl">{albumDetail.albumName}</h1>
+          <h1 className="px-6 text-white text-6xl">{albumDetail?.albumName}</h1>
           <p className="px-8 mt-7 text-white mb-2 text-sm">
-            {albumDetail.artistName}
+            {albumDetail?.artistName}
           </p>
         </div>
       </div>
       <AlbumTracks albumTracks={albumSongs} />
     </div>
   );
+};
+
+type albumDetailType = {
+  albumImage: string;
+  albumName: string;
+  artistName: string;
+  releaseDate: string;
+  totalSongs: string;
+  type: string;
 };

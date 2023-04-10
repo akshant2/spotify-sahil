@@ -7,7 +7,6 @@ import { AlbumPage } from "./Pages/AlbumPage";
 import { PlaylistPage } from "./Pages/PlaylistPage";
 import { LoginPage } from "./Pages/LoginPage";
 import { ArtistPage } from "./Pages/ArtistPage";
-import { CreatePlaylistPage } from "./Pages/CreatePlaylistPage";
 export const App: FC = function () {
   return (
     <BrowserRouter>
@@ -18,7 +17,6 @@ export const App: FC = function () {
         <Route path="/album/:id" element={<AlbumPage />} />
         <Route path="/playlist/:id" element={<PlaylistPage />} />
         <Route path="/artist/:id" element={<ArtistPage />} />
-        <Route path="/playlist" element={<CreatePlaylistPage />} />
       </Routes>
     </BrowserRouter>
   );
