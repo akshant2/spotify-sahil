@@ -1,8 +1,8 @@
 import React, { FC, Fragment } from "react";
 import { Song } from "../types";
-import MsToMinutes from "../Utilities/MsToMinutes";
+import { MsToMinutes } from "../Utilities/MsToMinutes";
 
-export const Songs: FC<{ songs: Song[] }> = ({ songs }) => {
+export const Songs: FC<SongType> = ({ songs }) => {
   return (
     <div>
       {songs.length ? (
@@ -34,3 +34,5 @@ export const Songs: FC<{ songs: Song[] }> = ({ songs }) => {
     </div>
   );
 };
+
+type SongType = { songs: Song[] };

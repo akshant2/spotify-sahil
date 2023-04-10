@@ -1,7 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import { Add, Home, LibraryAdd, Search } from "@material-ui/icons";
 
-export default function Sidebar() {
+export const Sidebar: FC = function () {
   return (
     <div className="top-0 left-0 fixed bg-black w-[20vw] h-full p-10">
       <img
@@ -60,4 +60,4 @@ export default function Sidebar() {
       </div>
     </div>
   );
-}
+};

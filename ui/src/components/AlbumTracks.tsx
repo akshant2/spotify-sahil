@@ -1,5 +1,5 @@
 import React, { FC, Fragment } from "react";
-import MsToMinutes from "../Utilities/MsToMinutes";
+import { MsToMinutes } from "../Utilities/MsToMinutes";
 import { AlbumSong } from "../types";
 
 export const AlbumTracks: FC<AlbumTrackType> = ({ albumTracks }) => {

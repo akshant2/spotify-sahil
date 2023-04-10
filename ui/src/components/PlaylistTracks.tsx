@@ -1,5 +1,5 @@
 import React, { FC, Fragment } from "react";
-import MsToMinutes from "../Utilities/MsToMinutes";
+import { MsToMinutes } from "../Utilities/MsToMinutes";
 import { PlaylistSong } from "../types";
 
 export const PlaylistTracks: FC<PlaylistTrackType> = ({ playlistTracks }) => {

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { ArrowBackIos } from "@material-ui/icons";
 import { Datatype, PlaylistSong } from "../types";
-import Authorize from "../Utilities/Authorize";
+import { Authorize } from "../Utilities/Authorize";
 import { PlaylistTracks } from "../components/PlaylistTracks";
-export default function PlaylistPage() {
+export const PlaylistPage: FC = function () {
   const [playlistSongs, setPlaylistSongs] = useState<PlaylistSong[]>([]);
   const [playlistDetails, setPlaylistDetails] = useState({
     playlistImage: " ",
@@ -70,4 +70,4 @@ export default function PlaylistPage() {
       <PlaylistTracks playlistTracks={playlistSongs} />
     </div>
   );
-}
+};

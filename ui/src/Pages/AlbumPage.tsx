@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AlbumSong, Datatype } from "../types";
-import Authorize from "../Utilities/Authorize";
+import { Authorize } from "../Utilities/Authorize";
 import { AlbumTracks } from "../components/AlbumTracks";
 
-export default function AlbumPage() {
+export const AlbumPage: FC = function () {
   const [albumSongs, setAlbumSongs] = useState<AlbumSong[]>([]);
   const [albumDetail, setAlbumDetail] = useState({
-    albumImage: " ",
-    releaseDate: " ",
-    totalSongs: " ",
-    albumName: " ",
-    type: " ",
-    artistName: " ",
+    albumImage: "",
+    albumName: "",
+    artistName: "",
+    releaseDate: "",
+    totalSongs: "",
+    type: "",
   });
 
   const { id } = useParams();
@@ -64,4 +64,4 @@ export default function AlbumPage() {
       <AlbumTracks albumTracks={albumSongs} />
     </div>
   );
-}
+};

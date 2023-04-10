@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Authorize from "../Utilities/Authorize";
+import { Authorize } from "../Utilities/Authorize";
 import { TopTracks } from "../types";
 import { ArtistTopTracks } from "../components/ArtistTopTracks";
 
-export default function ArtistPage() {
+export const ArtistPage: FC = function () {
   const [artistTracks, setArtistTracks] = useState<TopTracks[]>([]);
 
   const { id } = useParams();
@@ -39,4 +39,4 @@ export default function ArtistPage() {
       <ArtistTopTracks artistTopTracks={artistTracks} />
     </div>
   );
-}
+};

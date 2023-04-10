@@ -1,17 +1,11 @@
-import React, { Fragment, useEffect, useState } from "react";
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  Typography,
-} from "@material-ui/core";
-import Sidebar from "../components/Sidebar";
-import { Link } from "react-router-dom";
+import React, { FC, useEffect, useState } from "react";
+import { Sidebar } from "../components/Sidebar";
 import { Datatype, Release } from "../types";
-import Authorize from "../Utilities/Authorize";
+import { Authorize } from "../Utilities/Authorize";
+import { NewReleases } from "../components/NewReleases";
 
-export default function DashboardPage() {
-  const [releases, setRelease] = useState<Release[]>([]);
+export const DashboardPage: FC = function () {
+  const [release, setRelease] = useState<Release[]>([]);
   const accessToken = Authorize();
 
   useEffect(() => {
@@ -47,34 +41,7 @@ export default function DashboardPage() {
           New Releases
         </h1>
       </div>
-      <div className="bg-gray-600 p-2 ml-72 grid grid-rows-5 sm:grid-cols-5 md:grid-cols-5 gap-2">
-        {releases?.map((release, i) => {
-          return (
-            <Fragment key={i}>
-              <Card className="bg-gray-800 h-48 lg:h-auto lg:w-48">
-                <CardActionArea>
-                  <Link to={`/album/${release.id}`}>
-                    <img
-                      className="object-contain h-48 2-96"
-                      src={release.images[0].url}
-                    />
-                  </Link>
-                  <CardContent>
-                    <Typography
-                      className="text-white"
-                      gutterBottom
-                      variant={"body1"}
-                      component={"h1"}
-                    >
-                      {release.name}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Fragment>
-          );
-        })}
-      </div>
+      <NewReleases releases={release} />
     </div>
   );
-}
+};

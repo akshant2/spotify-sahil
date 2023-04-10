@@ -1,7 +1,5 @@
-import React from "react";
-
-export default function MsToMinutes(ms: number) {
+export const MsToMinutes: (ms: number) => string = function (ms: number) {
   const minutes = Math.floor(ms / 60000);
   const seconds = ((ms % 60000) / 1000).toFixed(0);
   return `${minutes}:${+seconds < 10 ? "0" : ""}${seconds}`;
-}
+};

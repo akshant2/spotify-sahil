@@ -1,15 +1,14 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { Button, FormControl, TextField } from "@material-ui/core";
-
+import React, { FC, ChangeEvent, useEffect, useState } from "react";
+import { Button, TextField } from "@material-ui/core";
 import { Album, Song, Artist, Playlist, Datatype } from "../types";
 import { Albums } from "../components/Albums";
 import { Songs } from "../components/Songs";
 import { Artists } from "../components/Artists";
 import { Clear, Home } from "@material-ui/icons";
 import { Playlists } from "../components/Playlists";
-import Authorize from "../Utilities/Authorize";
+import { Authorize } from "../Utilities/Authorize";
 
-export default function SearchbarPage() {
+export const SearchbarPage: FC = function () {
   const [searchInput, setSearchInput] = useState("");
   const [artist, setArtist] = useState<Artist[]>([]);
   const [album, setAlbums] = useState<Album[]>([]);
@@ -189,4 +188,4 @@ export default function SearchbarPage() {
       <Songs songs={song} />
     </div>
   );
-}
+};

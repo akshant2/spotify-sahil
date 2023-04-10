@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from "react";
 import { TopTracks } from "../types";
-import MsToMinutes from "../Utilities/MsToMinutes";
+import { MsToMinutes } from "../Utilities/MsToMinutes";
 
 export const ArtistTopTracks: FC<ArtistTopTrackType> = ({
   artistTopTracks,

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import { Button } from "@material-ui/core";
 
 const AUTH_URI = process.env.REACT_APP_AUTH_URL;
 
-function LoginPage() {
+export const LoginPage: FC = function () {
   return (
     <div className="h-screen bg-black">
       <div className="flex flex-col items-center justify-center mt-6">
@@ -19,6 +19,4 @@ function LoginPage() {
       </div>
     </div>
   );
-}
-
-export default LoginPage;
+};
